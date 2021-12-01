@@ -1,12 +1,12 @@
 #!/bin/bash
 
 mkdir MOL
-nama_zip=$(ls -- *[.zip]) #tangkep file yang berekstensi zip
-cp "$nama_zip" MOL/
+pilih_file_MOL=$(zenity --file-selection --file-filter='ZIP files (zip) | *.zip' --title="Pilih File Parent MOL nya" --filename=/home/iqbal/Kerja/imobi/task/Operation/log/) #nyari file yang mau di proses
+cp "$pilih_file_MOL" MOL/
 
 ## buka log di folder khusus
 (cd MOL/ || return #return buat antisipasi kalau gagal masuk folder
-unzip "$nama_zip"
+unzip -- *.zip
 gzip -d -- *.gz #buka bungkus log yang  berekstensi .gz
 )
 
@@ -29,4 +29,6 @@ grep "4g" hasil_MOL.txt  | sort >> MOL.csv
 )
 
 ##aktifitas selesai, saatnya bersih bersih
+simpen_file=$(zenity --file-selection --directory --title="Pilih tempat simpan file" --filename=/home/iqbal/Kerja/imobi/task/Operation/log/)
+mv MOL.csv hasil_MOL.txt "$simpen_file" #pindahin file csv ke folder pilihan pengguna
 rm --recursive MOL
