@@ -51,12 +51,15 @@ kelompok_oss "North_Sumatera"
 
 ## Mencocokan antara database dan CFGMML, bila ada yang kurang, lempar ke file csv untuk dilaporkan
 (
-cd database/
-ls > "list_database.txt"
-for list in "list_database.txt" ; do
-	for item in "$list" ; do
+cd database/ || return
+for list in $(cat list_database.txt) ; do
+echo "Sedang mengecek OSS $list"
+	for item in $(cat $list) ; do
+	echo "Lagi check $item"
+	echo "$list" | tr '\n' ',' >> "file_check.csv"
 	echo "$item" | tr '\n' ',' >> "file_check.csv"
-	grep "$item" "../cfgmml/$list" >> "file_check.csv" || if [ $? -eq 1 ] ; then echo "tidak ditemukan" >> "file_check.csv" ; else return; fi #search data BSC/RNC dari file database, dicocokan dengan yang ada di CFGMML
+	grep "$item"_ "../cfgmml/$list"  ; if [ $? -eq 0 ] ; then echo "aman" >> "file_check.csv" ; else echo "tidak ditemukan" >> "file_check.csv"; fi #search data BSC/RNC dari file database, dicocokan dengan yang ada di CFGMML
+	sleep 0.3 #penstabil skrip, kadang suka kecepetan trus hasilnya ngaco
 	done
 done
 echo "Mencocokan file selesai, saatnya save file ke folder yang diinginkan"
