@@ -16,15 +16,17 @@ list_log=$(ls -- *[.log])
 for item in $list_log; do
     echo "Sedang memproses $item"
     grep -oP "(?<=Path /opt/raw_data/)[^ ]*" "$item" | tr '\n' ',' >> "hasil_NL.txt" #search nama OSS, tech nya + vendornya , dan trim newline menjadi "," supaya mudah dibuat csv file
-    egrep -o "[0-9]{1,4} file-based networks were built" "$item" | egrep -o "[0-9]{1,4}" >> "hasil_NL.txt" || if [ $? -eq 1 ] ; then echo "fail" >> "hasil_NL.txt" ; else return; fi #search nilai NLoad di OSS tersebut, ambil angkanya aja
+    egrep -o "[0-9]{1,6} file-based networks were built" "$item" | egrep -o "[0-9]{1,6}" | tr '\n' ',' >> "hasil_NL.txt" || if [ $? -eq 1 ] ; then echo "fail" | tr '\n' ',' >> "hasil_NL.txt" ; else return; fi #search nilai NLoad di OSS tersebut, ambil angkanya aja
+    grep -oP "(?<=completed with the following status: )[^ ]*" "$item" >> "hasil_NL.txt"
+
 done
 echo "Selesai"
 cp "hasil_NL.txt" ..)
 
 #Urutkan sesuai teknologi dan OSS, lalu simpan hasilnya dalam bentuk csv
-(grep "2g" hasil_NL.txt | sort ; echo " "
+(grep "4g" hasil_NL.txt | sort ; echo " "
 grep "3g" hasil_NL.txt  | sort ; echo " "
-grep "4g" hasil_NL.txt  | sort ) >NL.csv
+grep "2g" hasil_NL.txt  | sort ) >NL.csv
 
 ##aktifitas selesai, saatnya simpen file penting dan bersih bersih
 simpen_file=$(zenity --file-selection --directory --title="Pilih tempat simpan file" --filename="$pilih_file_NL")
