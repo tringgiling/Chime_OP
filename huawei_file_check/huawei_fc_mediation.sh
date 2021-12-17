@@ -17,6 +17,7 @@ ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_North_Sumatera
 ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_West_Java
 ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Central_Sumatera
 ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_23
+ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_26
 ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Nusa_Tenggara
 ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Bali
 ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_East_Java
@@ -27,7 +28,9 @@ ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_North_Sumatera
 ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_West_Java
 ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Central_Sumatera
 ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_23
+ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_26
 ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Nusa_Tenggara
+bye
 EOF
 
 ## Pengelompokan sesuai MBSC/RNC dilanjut pengelompokan sesuai OSS
@@ -48,7 +51,7 @@ kelompok_oss "Nusa_Tenggara"
 kelompok_oss "North_Sumatera"
 kelompok_oss "East_Java"
 kelompok_oss "South_Sumatera"
-#kelompok_oss "Jabodetabek_26" #suspend, masih belum clear
+kelompok_oss "Jabodetabek_26" 
 kelompok_oss "Central_Java"
 kelompok_oss "Jabodetabek_18"
 kelompok_oss "Bali"

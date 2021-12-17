@@ -39,7 +39,7 @@ kelompok_oss "Nusa_Tenggara"
 kelompok_oss "North_Sumatera"
 kelompok_oss "East_Java"
 kelompok_oss "South_Sumatera"
-#kelompok_oss "Jabodetabek_26" #suspend, masih belum clear
+kelompok_oss "Jabodetabek_26"
 kelompok_oss "Central_Java"
 kelompok_oss "Jabodetabek_18"
 kelompok_oss "Bali"
@@ -59,7 +59,6 @@ echo "Sedang mengecek OSS $list"
 	echo "$list" | tr '\n' ',' >> "file_check.csv"
 	echo "$item" | tr '\n' ',' >> "file_check.csv"
 	grep "$item"_ "../cfgmml/$list"  ; if [ $? -eq 0 ] ; then echo "aman" >> "file_check.csv" ; else echo "tidak ditemukan" >> "file_check.csv"; fi #search data BSC/RNC dari file database, dicocokan dengan yang ada di CFGMML
-	sleep 0.3 #penstabil skrip, kadang suka kecepetan trus hasilnya ngaco
 	done
 done
 echo "Mencocokan file selesai, saatnya save file ke folder yang diinginkan"
