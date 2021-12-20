@@ -1,4 +1,5 @@
 #!/bin/bash
+tanggal=`date "+%d_%b_%Y"`; jam=`date "+%T"`  #buat detail kapan pemeriksaan dilakukan
 default_ip_socks="192.168.42.129"		#Khusus vpn iqbal
 default_port_socks="1080"					#Khusus vpn iqbal
 
@@ -64,22 +65,24 @@ kelompok_oss "North_Sumatera"
 ## Mencocokan antara database dan CFGMML, bila ada yang kurang, lempar ke file csv untuk dilaporkan
 (
 cd database/ || return
+(echo "Diperiksa Pada ,$tanggal" ; echo "Jam ,$jam" ; echo " ";echo "OSS,BSC/RNC,Status,Time_Stamp" ) >> "file_check.csv"
 for list in $(cat list_database.txt) ; do
 echo "Sedang mengecek OSS $list"
 	for item in $(cat $list) ; do
 	echo "Lagi check $item"
-	echo "$list" | tr '\n' ',' >> "file_check.csv"
-	echo "$item" | tr '\n' ',' >> "file_check.csv"
-	grep "$item"_ "../cfgmml/$list"  ; if [ $? -eq 0 ] ; then echo "aman" >> "file_check.csv" ; else echo "tidak ditemukan" >> "file_check.csv"; fi #search data BSC/RNC dari file database, dicocokan dengan yang ada di CFGMML
+	echo "$list" | tr '\n' ',' >> "file_check.csv"       #Kolom OSS
+	echo "$item" | tr '\n' ',' >> "file_check.csv"     #Kolom BSC/RNC
+	grep "$item"_ "../cfgmml/$list"  ; if [ $? -eq 0 ] ; then echo "ada" | tr '\n' ',' >> "file_check.csv" ; else echo "tidak ditemukan" | tr '\n' ',' >> "file_check.csv"; fi #Kolom Status
+	(grep -oP "(?<="$item"_)[^ ][0-9]{1,8}"  "../cfgmml/$list" || if [ $? -eq 1 ] ; then echo "-"  ; else return; fi) | head -1>> "file_check.csv" #Kolom Time_stamp
 	done
 done
 echo "Mencocokan file selesai, saatnya save file ke folder yang diinginkan"
-mv "file_check.csv" ..
+mv "file_check.csv" ../"file_check_$tanggal.csv"
 )
 
 ##aktifitas selesai, saatnya simpen file penting dan bersih bersih
 simpen_file=$(zenity --file-selection --directory --title="Pilih tempat simpan file" --filename=/home/iqbal/Kerja/imobi/task/Operation/log/)
 zip -r file_check.zip cfgmml/ file_check.txt
-mv file_check.csv file_check.zip "$simpen_file" #pindahin file csv ke folder pilihan pengguna
+mv file_check_$tanggal.csv file_check.zip "$simpen_file" #pindahin file csv ke folder pilihan pengguna
 rm --recursive cfgmml file_check.txt #bersihin folder tempat ekstrak file, dll
 
