@@ -1,0 +1,64 @@
+#rencana nya mau buat file sh
+
+#########
+Bali:
+10.2.160.112
+ftptest
+Telkomsel#2
+
+############
+Central Java:
+10.52.204.81
+ftpuser	
+Changeme_123
+
+###########
+Central Sumatera:
+10.52.205.71
+ftptest
+Telkomsel#1
+
+###########
+East Java:
+10.52.209.199
+ftptest
+Telkomsel#1
+
+###########
+Jabodetabek 18:
+10.2.160.52
+ftpuser
+Changeme_123
+
+###########
+Jabodetabek 23 dan Jabodetabek 26:
+10.52.207.200
+ftpuser
+Changeme_123
+
+##########
+North Sumatera
+10.52.204.201
+ftptest
+Telkomsel#1
+
+##########
+Nusa Tenggara
+10.54.30.75
+ftptest
+Telkomsel#1
+
+#########
+South Sumatera
+10.52.208.202
+ftptest
+Telkomsel#2
+
+########
+West Java
+10.52.209.199
+ftptest
+Telkomsel#1
+
+########
+

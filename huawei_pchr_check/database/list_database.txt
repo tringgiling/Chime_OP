@@ -1,0 +1,10 @@
+Bali.txt
+Central_Java.txt
+Central_Sumatra.txt
+East_Java.txt
+Jabodetabek_18.txt
+Jabodetabek_2.txt
+North_Sumatera.txt
+Nusa_Tenggara.txt
+South_Sumatra.txt
+West_Java.txt
