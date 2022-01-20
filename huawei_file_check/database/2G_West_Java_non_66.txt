@@ -1,0 +1,12 @@
+MBSC_Cikajang
+MBSC_Cimalaka
+MBSC_Jayalaksana1
+MBSC_Jayalaksana2
+MBSC_Kadipaten
+MBSC_Kalijati
+MBSC_KarangNunggal
+MBSC_Karyamulya2
+MBSC_Mangkubumi
+MBSC_RajaPolah
+MBSC_STOTasikmalaya2
+MBSC_Watuwelah2
