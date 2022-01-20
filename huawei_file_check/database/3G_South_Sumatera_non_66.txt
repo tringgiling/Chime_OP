@@ -1,0 +1,13 @@
+RNC_MuaraBungo
+RNC_MuaraBungo2
+RNC_PadangHarapan
+RNC_PadangHarapan2
+RNC_Palembang1
+RNC_PangkalPinang1
+RNC_PangkalPinang2
+RNC_STOBengkuluCentrum
+RNC_TanjungPandan
+RNC_TTCLampung2
+RNC_TTCLampung5
+RNC_Wonosari
+

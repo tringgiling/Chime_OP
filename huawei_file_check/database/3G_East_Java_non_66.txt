@@ -1,0 +1,8 @@
+RNC_Anteve1
+RNC_Banyuwangi1
+RNC_Dringu1
+RNC_Jember1
+RNC_Jember2
+RNC_Kebalen2
+RNC_Madiun1
+RNC_Papar1
