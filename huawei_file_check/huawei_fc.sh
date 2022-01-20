@@ -1,4 +1,5 @@
 #!/bin/bash
+tanggal=`date "+%d_%b_%Y"`; jam=`date "+%T"`
 
 mkdir file_check
 pilih_file_NL=$(zenity --file-selection --file-filter='ZIP files (zip) | *.zip' --title="Pilih File Parent NL nya" --filename=/home/iqbal/Kerja/imobi/task/Operation/log/) #nyari file yang mau di proses
@@ -52,13 +53,17 @@ kelompok_oss "North_Sumatera"
 ## Mencocokan antara database dan CFGMML, bila ada yang kurang, lempar ke file csv untuk dilaporkan
 (
 cd database/ || return
+(echo "Diperiksa Pada ,$tanggal" ; echo "Jam ,$jam" ; echo " ";echo "OSS,BSC/RNC,Part of 66 City?,Status,Time_Stamp" ) >> "file_check.csv"
 for list in $(cat list_database.txt) ; do
 echo "Sedang mengecek OSS $list"
 	for item in $(cat $list) ; do
 	echo "Lagi check $item"
-	echo "$list" | tr '\n' ',' >> "file_check.csv"
-	echo "$item" | tr '\n' ',' >> "file_check.csv"
-	grep "$item"_ "../cfgmml/$list"  ; if [ $? -eq 0 ] ; then echo "aman" >> "file_check.csv" ; else echo "tidak ditemukan" >> "file_check.csv"; fi #search data BSC/RNC dari file database, dicocokan dengan yang ada di CFGMML
+	echo "$list" | sed 's/.txt//g' | sed 's/_non_66//g' |tr "\n" "," >> "file_check.csv"       #Kolom OSS
+	echo "$item" | tr '\n' ',' >> "file_check.csv"     #Kolom BSC/RNC
+	(echo "$list" | grep -q "non_66";  if [ $? -eq 1 ] ; then echo "Yes" | tr '\n' ',' ; else echo "No" | tr '\n' ',' ; fi ) >> "file_check.csv" # Kolom Part 66 City
+	clear_list=$(echo "$list" | sed 's/_non_66//g') #pengaman untuk proses membanding database dengan file non 66 city
+	grep "$item"_ "../cfgmml/$clear_list"  ; if [ $? -eq 0 ] ; then echo "ada" | tr '\n' ',' >> "file_check.csv" ; else echo "tidak ditemukan" | tr '\n' ',' >> "file_check.csv"; fi #Kolom Status
+	(grep -oP "(?<='$item'_)[^ ][0-9]{1,8}"  "../cfgmml/$clear_list" || if [ $? -eq 1 ] ; then echo "-"  ; else return; fi) | head -1>> "file_check.csv" #Kolom Time_stamp
 	done
 done
 echo "Mencocokan file selesai, saatnya save file ke folder yang diinginkan"
