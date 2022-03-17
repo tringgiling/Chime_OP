@@ -9,6 +9,6 @@ MBSC_STOTasikmalaya
 MBSC_Cianjur
 MBSC_Pagaden
 MBSC_Dago1
-MBSC_TamanSakura
+#MBSC_TamanSakura
 MBSC_Watuwelah
-MBSC_KaryaMulya
+#MBSC_KaryaMulya
