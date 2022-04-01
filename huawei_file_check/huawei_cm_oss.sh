@@ -64,7 +64,7 @@ kelompok_oss "North_Sumatera"
 ## Mencocokan antara database dan CFGMML, bila ada yang kurang, lempar ke file csv untuk dilaporkan
 (
 cd database/ || return
-(echo "Diperiksa Pada ,$tanggal" ; echo "Jam ,$jam" ;echo "FTP North Sumatera dilindungi TLS jadi script nya ngga bisa tembus ke server OSS nya jadi khusus sumbagut cek lewat mediation aja";echo "item yang ada tanda # = dismantle" ;echo " "; echo "OSS,BSC/RNC,Part of 66 City?,Status OSS,Time_Stamp OSS" ) >> "file_check.csv"
+(echo "Diperiksa Pada ,$tanggal" ; echo "Jam ,$jam" ;echo "FTP North Sumatera dilindungi TLS jadi script nya ngga bisa tembus ke server OSS nya jadi khusus sumbagut cek lewat mediation aja";echo "item yang ada tanda # = disconnect" ;echo " "; echo "OSS,BSC/RNC,Part of 66 City?,Status OSS,Time_Stamp OSS" ) >> "file_check.csv"
 for list in $(cat list_database.txt) ; do
 echo "Sedang mengecek OSS $list"
 	for item in $(cat $list) ; do
@@ -73,8 +73,9 @@ echo "Sedang mengecek OSS $list"
 	echo "$item" | tr '\n' ',' >> "file_check.csv"     #Kolom BSC/RNC
 	(echo "$list" | grep -q "non_66";  if [ $? -eq 1 ] ; then echo "Yes" | tr '\n' ',' ; else echo "No" | tr '\n' ',' ; fi ) >> "file_check.csv" # Kolom Part 66 City
 	clear_list=$(echo "$list" | sed 's/_non_66//g') #pengaman untuk proses membanding database dengan file non 66 city
-	grep "$item"_ "../cfgmml/$clear_list"  ; if [ $? -eq 0 ] ; then echo "ada" | tr '\n' ',' >> "file_check.csv" ; else echo "tidak ditemukan" | tr '\n' ',' >> "file_check.csv"; fi #Kolom Status
-	(grep -oP "(?<="$item"_)[^ ][0-9]{1,8}"  "../cfgmml/$clear_list" || if [ $? -eq 1 ] ; then echo "-"  ; else return; fi) | head -1>> "file_check.csv" #Kolom Time_stamp
+	clear_item=$(echo "$item" | sed 's/\#//g') #pengaman untuk MBSC yang dikasih tanda "#" karna statusnya lagi dc sementara
+	grep "$clear_item"_ "../cfgmml/$clear_list"  ; if [ $? -eq 0 ] ; then echo "ada" | tr '\n' ',' >> "file_check.csv" ; else echo "tidak ditemukan" | tr '\n' ',' >> "file_check.csv"; fi #Kolom Status
+	(grep -oP "(?<="$clear_item"_)[^ ][0-9]{1,8}"  "../cfgmml/$clear_list" || if [ $? -eq 1 ] ; then echo "-"  ; else return; fi) | head -1>> "file_check.csv" #Kolom Time_stamp
 	done
 done
 echo "Mencocokan file selesai, saatnya save file ke folder yang diinginkan"
