@@ -14,7 +14,7 @@ MBSC_Lumajang4
 MBSC_Nganjuk1
 MBSC_Pacitan3
 MBSC_Pohwates3
-MBSC_Ponorogo4
+#MBSC_Ponorogo4
 MBSC_Sampang1
 MBSC_Sempu4
 MBSC_Sempu5
