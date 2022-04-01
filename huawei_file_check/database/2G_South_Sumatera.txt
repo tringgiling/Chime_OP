@@ -3,7 +3,7 @@ MBSC_NewBetung
 MBSC_Palembang6
 MBSC_Palembang5
 MBSC_Palembang7
-MBSC_TTCLampung11
+#MBSC_TTCLampung11
 MBSC_TTCLampung10
 MBSC_TTCLampung9
 MBSC_Jambi5
