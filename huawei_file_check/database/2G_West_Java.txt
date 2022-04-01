@@ -5,7 +5,7 @@ MBSC_BaleEndah
 MBSC_DayeuhKolot
 MBSC_KarangPawitan
 MBSC_BanjarKota
-MBSC_STOTasikmalaya
+#MBSC_STOTasikmalaya
 MBSC_Cianjur
 #MBSC_Pagaden
 #MBSC_Dago1

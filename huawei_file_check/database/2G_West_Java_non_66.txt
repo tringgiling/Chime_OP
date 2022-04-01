@@ -4,7 +4,7 @@ MBSC_Jayalaksana1
 #MBSC_Jayalaksana2
 #MBSC_Kadipaten
 MBSC_Kalijati
-MBSC_KarangNunggal
+#MBSC_KarangNunggal
 MBSC_Karyamulya2
 MBSC_Mangkubumi
 #MBSC_RajaPolah
