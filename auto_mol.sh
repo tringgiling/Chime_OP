@@ -14,20 +14,27 @@ gzip -d -- *.gz #buka bungkus log yang  berekstensi .gz
 (cd MOL/ || return #return buat antisipasi kalau gagal masuk folder
 list_log=$(ls -- *[.log])
 for item in $list_log; do
-    echo "$item"
-    grep -oP "(?<=source: /opt/raw_data/)[^ ]*" "$item" | tr '\n' ',' >> "hasil_MOL.txt" #search nama OSS, tech nya + vendornya , dan trim newline menjadi "," supaya mudah dibuat csv file
-    grep -oP "(?<=Finishing loading network model to DB.Number of records loaded )[^ ]*" "$item" >> "hasil_MOL.txt" || if [ $? -eq 1 ] ; then echo "fail" >> "hasil_MOL.txt" ; else return; fi #search nilai MOLoad di OSS tersebut
+	
+	#Menginfokan File log mana yang sedang diolah
+    echo "Sedang memproses $item"
+    
+    #Membaca 5000 Baris pertama file, lalu meng grep Nama oss + vendor dilanjut trim newline menjadi "," supaya mudah dibuat csv file
+    #Gara gara zte jadi harus set ke 5000, padahal kalau huawei pure cuma butuh 500 first line
+    head -n 5000 "$item" | grep -oP "(?<=source: /opt/raw_data/)[^ ]*"  | tr '\n' ',' >> "hasil_MOL.txt"
+    
+    #Membaca 10 Baris terakhir File, dialnjut search nilai MOLoad di OSS/EMS tersebut
+    tail -n 10 "$item" | grep -oP "(?<=Finishing loading network model to DB.Number of records loaded )[^ ]*"  >> "hasil_MOL.txt" || if [ $? -eq 1 ] ; then echo "fail" >> "hasil_MOL.txt" ; else return; fi 
 done
 cp "hasil_MOL.txt" ..
 )
 
 ## mensortir file nya sesuai teknologi dan diurut sesuai OSS, disimpan dalam bentuk file csv
-(grep "2g" hasil_MOL.txt | sort  ; echo " "
+(grep "4g" hasil_MOL.txt | sort  ; echo " "
 grep "3g" hasil_MOL.txt  | sort  ; echo " "
-grep "4g" hasil_MOL.txt  | sort ) > MOL.csv
+grep "2g" hasil_MOL.txt  | sort ) > MOL.csv
 
 
-##aktifitas selesai, saatnya bersih bersih
+##aktifitas selesai, saatnya pindahin file penting dan bersih bersih
 simpen_file=$(zenity --file-selection --directory --title="Pilih tempat simpan file" --filename="$pilih_file_MOL")
 mv MOL.csv hasil_MOL.txt "$simpen_file" #pindahin file csv ke folder pilihan pengguna
 rm --recursive MOL

@@ -14,10 +14,18 @@ gzip -d -- *.gz #buka bungkus log yang  berekstensi .gz
 (cd NL/ || return #return buat antisipasi kalau gagal masuk folder
 list_log=$(ls -- *[.log])
 for item in $list_log; do
+
+	#Menginfokan File log mana yang sedang diolah
     echo "Sedang memproses $item"
-    grep -oP "(?<=Path /opt/raw_data/)[^ ]*" "$item" | tr '\n' ',' >> "hasil_NL.txt" #search nama OSS, tech nya + vendornya , dan trim newline menjadi "," supaya mudah dibuat csv file
-    egrep -o "[0-9]{1,6} file-based networks were built" "$item" | egrep -o "[0-9]{1,6}" | tr '\n' ',' >> "hasil_NL.txt" || if [ $? -eq 1 ] ; then echo "fail" | tr '\n' ',' >> "hasil_NL.txt" ; else return; fi #search nilai NLoad di OSS tersebut, ambil angkanya aja
-    grep -oP "(?<=completed with the following status: )[^ ]*" "$item" >> "hasil_NL.txt"
+
+	#Membaca 50 Baris pertama file, lalu meng grep Nama oss + vendor dilanjut trim newline menjadi "," supaya mudah dibuat csv file
+    head -n 50 "$item" | grep -oP "(?<=Path /opt/raw_data/)[^ ]*" | tr '\n' ',' >> "hasil_NL.txt" #search nama OSS, tech nya + vendornya , dan trim newline menjadi "," supaya mudah dibuat csv file
+    
+    #search nilai NLoad di OSS tersebut, ambil angkanya aja
+    egrep -o "[0-9]{1,6} file-based networks were built" "$item" | egrep -o "[0-9]{1,6}" | tr '\n' ',' >> "hasil_NL.txt" || if [ $? -eq 1 ] ; then echo "fail" | tr '\n' ',' >> "hasil_NL.txt" ; else return; fi 
+    
+    #Membaca 20 Baris terakhir File, dialnjut search nilai MOLoad di OSS/EMS tersebut
+    tail -n 20  "$item" | grep -oP "(?<=completed with the following status: )[^ ]*" >> "hasil_NL.txt" || if [ $? -eq 1 ] ; then echo "belum beres" >> "hasil_NL.txt" ; else return; fi
 
 done
 echo "Selesai"
