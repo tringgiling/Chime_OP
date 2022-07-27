@@ -10,6 +10,9 @@ unzip -- *.zip
 gzip -d -- *.gz #buka bungkus log yang  berekstensi .gz
 )
 
+## Ambil tanggal Log NL untuk dijadikan nama file output nantinya
+tanggal_NL=$(ls NL/ | grep -oP "(?<=optserver.)[^_]*" | head -n 1)
+
 ## baca file log di folder khusus, grep yang dibutuhkan, hasilnya dirangkum di folder utama
 (cd NL/ || return #return buat antisipasi kalau gagal masuk folder
 list_log=$(ls -- *[.log])
@@ -53,9 +56,9 @@ cp "hasil_NL_final.txt" ../hasil_NL.txt)
 (echo "Region Path,Jumlah File-based NL,Status task,Jumlah Sektor,Total Failed Physical (sector),Total Failed RET (Sector)";
 grep "4g" hasil_NL.txt | sort ; echo " "
 grep "3g" hasil_NL.txt  | sort ; echo " "
-grep "2g" hasil_NL.txt  | sort ) >NL.csv
+grep "2g" hasil_NL.txt  | sort ) > "NL_$tanggal_NL.csv"
 
 ##aktifitas selesai, saatnya simpen file penting dan bersih bersih
 simpen_file=$(zenity --file-selection --directory --title="Pilih tempat simpan file" --filename="$pilih_file_NL")
-mv NL.csv hasil_NL.txt "$simpen_file" #pindahin file csv ke folder pilihan pengguna
+mv "NL_$tanggal_NL.csv" "hasil_NL.txt" "$simpen_file" #pindahin file csv ke folder pilihan pengguna
 rm --recursive NL #bersihin folder tempat ekstrak file NL
