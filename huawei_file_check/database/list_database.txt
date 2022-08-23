@@ -1,7 +1,5 @@
 2G_Bali.txt
 2G_Bali_non_66.txt
-2G_Central_Java.txt
-2G_Central_Java_non_66.txt
 2G_Central_Sumatera.txt
 2G_East_Java.txt
 2G_East_Java_non_66.txt
@@ -18,8 +16,6 @@
 2G_West_Java_non_66.txt
 3G_Bali.txt
 3G_Bali_non_66.txt
-3G_Central_Java.txt
-3G_Central_Java_non_66.txt
 3G_Central_Sumatera.txt
 3G_East_Java.txt
 3G_East_Java_non_66.txt
