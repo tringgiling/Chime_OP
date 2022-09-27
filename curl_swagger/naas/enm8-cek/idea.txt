@@ -1,0 +1,18 @@
+ossId,userLabel,RAN
+
+get_cell_info=$(curl -X GET "http://10.62.101.62:9091/naas/v1/cells?fields=ossId%2CuserLabel%2CRAN&includeExtensions=true&includeInsightsData=true&includeLabelsData=true&includePhysicalData=true&links=false&name=$item&per_page=200" -H "accept: application/json")
+
+syntax untuk filter ossid 27 (ran11) trus di take out :
+grep 'ossId":"27"' $get_cell_info
+if [ $? -eq 0 ]  
+ then echo "$variablenya, contain Ran 11"
+
+else  
+ 
+;fi  
+
+
+syntax untuk csv output (ran8) :
+grep -oP '("ossId":"24","userLabel":")[^}]*'
+
+
