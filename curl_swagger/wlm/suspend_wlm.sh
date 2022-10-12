@@ -1,7 +1,8 @@
-for id in $(cat ID_suspend_CJ.txt); do
+for id in $(cat wlm_suspend_gel_2.txt); do
 (echo "====="
-echo "ID Task '$id' suspended"
-echo 'curl -I -X POST "http://10.62.101.62:9090/wlm/tasks/"$id"/suspend" -H "accept: */*"'
+echo "Mensuspend ID Task '$id'"
+echo 'curl -I -X POST "http://10.62.101.62:9090/wlm/tasks/'$id'/suspend" -H "accept: */*"'
+echo "Response : "
 curl -I -X POST "http://10.62.101.62:9090/wlm/tasks/$id/suspend" -H "accept: */*"
-) >> iqbal.txt
+) >> iqbal.log
 done
