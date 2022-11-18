@@ -5,19 +5,12 @@ cm_dir=/export/home/sysm/ftproot/TimerTask/CFGMML
 #Function untuk ambil data CFGMML di server OSS
 ambil_data_cm() {
 echo "Lagi berkunjung ke OSS $1"
-ftp -n $2 > "$1.txt" << EOT
-ascii
-user $3 $4
-prompt
-cd $5
-ls -lt
-bye
-EOT
+(lftp -c "set sftp:connect-program 'ssh -o StrictHostKeyChecking=no'; open -u $3,$4 sftp://$2; ls $5; quit") >> "$1.txt"
 }
 
 #proses ambil data CFGMML di OSS
 (
-mkdir "cfgmml" 
+mkdir -p "cfgmml" 
 cd cfgmml/ || return
 
 # Struktur Parameter =>  OSS    IP    username    password        folder_CFGMML
@@ -64,7 +57,7 @@ kelompok_oss "North_Sumatera"
 ## Mencocokan antara database dan CFGMML, bila ada yang kurang, lempar ke file csv untuk dilaporkan
 (
 cd database/ || return
-(echo "Diperiksa Pada ,$tanggal" ; echo "Jam ,$jam" ;echo "FTP North Sumatera dilindungi TLS jadi script nya ngga bisa tembus ke server OSS nya jadi khusus sumbagut cek lewat mediation aja";echo "item yang ada tanda # = disconnect" ;echo " "; echo "OSS,BSC/RNC,Part of 66 City?,Status OSS,Time_Stamp OSS" ) >> "file_check.csv"
+(echo "Diperiksa Pada ,$tanggal" ; echo "Jam ,$jam" ;echo "item yang ada tanda # = disconnect" ;echo " "; echo "OSS,BSC/RNC,Part of 66 City?,Status OSS,Time_Stamp OSS" ) >> "file_check.csv"
 for list in $(cat list_database.txt) ; do
 echo "Sedang mengecek OSS $list"
 	for item in $(cat $list) ; do
