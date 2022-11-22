@@ -12,31 +12,31 @@ tanggal=`date "+%d_%b_%Y"`; jam=`date "+%T"`  #buat detail kapan pemeriksaan dil
 #sftp -oProxyCommand="netcat -v -x $ip_socks:$port_socks %h %p" sse@10.62.101.88 22 > "file_check.txt" << EOF
 ####
 
-sftp sse@10.62.101.88 22 > "file_check.txt" << EOF
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Bali
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_East_Java
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_South_Sumatera
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Central_Java
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_18
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_North_Sumatera
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_West_Java
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Central_Sumatera
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_23
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_26
-ls /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Nusa_Tenggara
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Bali
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_East_Java
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_South_Sumatera
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Central_Java
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_18
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_North_Sumatera
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_West_Java
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Central_Sumatera
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_23
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_26
-ls /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Nusa_Tenggara
-bye
-EOF
+(lftp -c "set sftp:connect-program 'ssh -o StrictHostKeyChecking=no'; open -u sse,Tsel2020! sftp://10.62.101.88; 
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Bali;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_East_Java;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_South_Sumatera;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Central_Java;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_18;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_North_Sumatera;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_West_Java;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Central_Sumatera;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_23;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Jabodetabek_26;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/2g/oss_Nusa_Tenggara;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Bali;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_East_Java;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_South_Sumatera;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Central_Java;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_18;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_North_Sumatera;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_West_Java;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Central_Sumatera;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_23;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Jabodetabek_26;
+cls -l --sort=date /opt/nfs-data/shares/raw_data/huawei/sd/3g/oss_Nusa_Tenggara;
+quit") >> "file_check.txt"
+
 
 ## Pengelompokan sesuai MBSC/RNC dilanjut pengelompokan sesuai OSS
 ( mkdir "cfgmml" 
