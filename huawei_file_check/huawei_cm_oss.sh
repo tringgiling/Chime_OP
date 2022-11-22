@@ -5,7 +5,7 @@ cm_dir=/export/home/sysm/ftproot/TimerTask/CFGMML
 #Function untuk ambil data CFGMML di server OSS
 ambil_data_cm() {
 echo "Lagi berkunjung ke OSS $1"
-(lftp -c "set sftp:connect-program 'ssh -o StrictHostKeyChecking=no'; open -u $3,$4 sftp://$2; ls $5; quit") >> "$1.txt"
+(lftp -c "set sftp:connect-program 'ssh -o StrictHostKeyChecking=no'; open -u $3,$4 sftp://$2; cls -l --sort=date $5; quit") >> "$1.txt"
 }
 
 #proses ambil data CFGMML di OSS
