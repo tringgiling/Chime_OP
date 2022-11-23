@@ -4,6 +4,7 @@ import tkinter as tk
 import shutil
 import gzip
 import re
+import glob
 from tkinter import filedialog #buat pilih file MOL
 from pathlib import Path
 from shutil import copy, rmtree
@@ -29,11 +30,11 @@ list_file = os.listdir(folder_proses)
 time_stamp = "".join(re.findall(r'(?<=optserver.)[^_]*',list_file[0]))
 
 ## decompress file gzip di folder MOL
-for file_gzip in os.listdir(folder_proses):
-	with gzip.open(folder_proses + "/" + file_gzip , 'rb') as f_in:
+for file_gzip in glob.glob(folder_proses + "/*.gz"):
+	with gzip.open(file_gzip , 'rb') as f_in:
 		with open(folder_proses + "/" + Path(file_gzip).stem , 'wb') as f_out:
 			shutil.copyfileobj(f_in, f_out)
-	os.remove( folder_proses + "/" + file_gzip)
+	os.remove(file_gzip)
 
 ## baca file log dan mencari informasi yang dibutuhkan
 list_data_Ericsson_MOL = []
