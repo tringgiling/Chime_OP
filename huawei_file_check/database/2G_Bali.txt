@@ -1,8 +1,8 @@
 MBSC_Kerobokan1
 MBSC_Renon4
-MBSC_GnIslam1
-MBSC_Renon3
+#MBSC_GnIslam1
+#MBSC_Renon3
 MBSC_Renon2
 MBSC_Singaraja1
 MBSC_Renon1
-MBSC_Renon5
+#MBSC_Renon5

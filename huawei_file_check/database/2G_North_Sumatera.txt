@@ -1,9 +1,9 @@
 MBSC_TTCAmirHamzah3
-MBSC_JohorUjung
+#MBSC_JohorUjung
 MBSC_STOTembung2
-MBSC_STOTembung1
+#MBSC_STOTembung1
 MBSC_TTCAmirHamzah2
 MBSC_Binjai
 MBSC_NewStabat
 MBSC_TTCAmirHamzah1
-MBSC_TebingTinggi
+#MBSC_TebingTinggi
