@@ -1,0 +1,3 @@
+open -hostkey="acceptnew" sftp://ftptest:T3lk0ms3l#2@10.168.194.48
+ls "/export/home/sysm/ftproot/TimerTask/CFGMML/"
+exit

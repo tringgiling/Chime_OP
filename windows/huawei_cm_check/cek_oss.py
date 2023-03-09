@@ -1,36 +1,46 @@
 #! python
 
 import subprocess
+import re
 
-#initial state
-North_Sumatra = []
-Central_Sumatra = []
-South_Sumatra = []
-Jabodetabek_18 = []
-Jabodetabek_23 = []
-Jabodetabek_26 = []
-West_Java = []
+def check_cm_with_winscp(region):
+	configuration_txt_file = region + ".txt"
+	print ("Sedang berkunjung ke OSS : " + region)
+	winscp_oss_output = subprocess.check_output([r'connect_to_oss_using_winscp.bat', configuration_txt_file]).decode('utf-8')
+	
+	#kalau mau return string
+	return winscp_oss_output
 
 
-def check_cm(region,ip,username,password):
-	curl_syntax_maker = ("curl --list-only --user " + username + ":" + password + " ftp://" + ip + "//export/home/sysm/ftproot/TimerTask/CFGMML/")
-	cm_check_to_ftp = subprocess.check_output(curl_syntax_maker,shell=True)
-	cm_check_to_ftp_byte_to_string = str(cm_check_to_ftp.decode('utf-8'))
-	cm_listed = cm_check_to_ftp_byte_to_string.replace("\r\n"," ").split() # ganti new line jadi whitespace, trus create list dan di seperate oleh whitespace
-	region.extend(cm_listed)
 
-#check_cm(North_Sumatra,"10.212.83.83","ftptest","T3lk0ms3l#2")
-check_cm(Central_Sumatra,"10.212.83.57","ftptest","T3lk0ms3l#2")
-check_cm(South_Sumatra,"10.212.83.5","ftpuser","Changeme_123")
-check_cm(Jabodetabek_18,"10.168.194.5","ftptest","T3lk0ms3l#2")
-check_cm(Jabodetabek_23,"10.168.194.48","ftptest","T3lk0ms3l#2")
-check_cm(Jabodetabek_26,"10.168.194.100","ftptest","T3lk0ms3l#2")
-check_cm(West_Java,"10.168.197.5","ftptest","T3lk0ms3l#2")
+North_Sumatra = check_cm_with_winscp("North_Sumatra")
+Central_Sumatra = check_cm_with_winscp("Central_Sumatra")
+South_Sumatra = check_cm_with_winscp("South_Sumatra")
+Jabodetabek_18 = check_cm_with_winscp("Jabodetabek_18")
+Jabodetabek_23 = check_cm_with_winscp("Jabodetabek_23")
+Jabodetabek_26 = check_cm_with_winscp("Jabodetabek_26")
+West_Java = check_cm_with_winscp("West_Java")
 
-print(North_Sumatra)
-print(Central_Sumatra)
-print(South_Sumatra)
-print(Jabodetabek_18)
-print(Jabodetabek_23)
-print(Jabodetabek_26)
-print(West_Java)
+
+### Test Case, Tested
+# print ("\nNorth Sumatra" + North_Sumatra)
+# print ("\nCentral Sumatra" + Central_Sumatra)
+# print ("\nSouth_Sumatra" + South_Sumatra)
+# print ("\nJabodetabek_18" + Jabodetabek_18)
+# print ("\nJabodetabek_23" + Jabodetabek_23)
+# print ("\nJabodetabek_26" + Jabodetabek_26)
+# print ("\nWest_Java" + West_Java)
+
+### Contoh Regex
+cm_file = max(re.findall ("MBSC_TTCAmirHamzah1" + "_",North_Sumatra))
+time_stamp = max(re.findall(r'(?<=' + re.escape("MBSC_TTCAmirHamzah1") + '_)[^ ][0-9]{1,8}',North_Sumatra))
+print (cm_file)
+print (time_stamp)
+
+
+
+#for x in winscp.splitlines():
+#	print (x)
+# log = open("iqbal.txt","a")
+# log.write (str(winscp.decode('utf-8')))
+# log.close 
