@@ -22,7 +22,7 @@ do
         GREP_DATE_STATUS=$?
         if [ $GREP_DATE_STATUS == 0  ]
         then
-                LOGIN_DATE=$(printf '%s\n' "$p" | egrep -o "^[0-9]{1,2}\-...\-20[0-9]{1,2}")
+                LOGIN_DATE=$(printf '%s\n' "$p" | egrep -o "[0-9]{1,2}\-...\-20[0-9]{1,2}")
                 #echo $LOGIN_DATE
         else
                 echo "$LOGIN_DATE%$LINE" | sed 's/%.*User /,/g' | sed 's/logged.*//g' | sed -E 's/\ {2,9}/ /g'
