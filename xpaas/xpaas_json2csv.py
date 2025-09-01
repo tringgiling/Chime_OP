@@ -1,7 +1,17 @@
 import pandas as pd
 import json
+import tkinter as tk
+from tkinter import filedialog
+from pathlib import Path
 
-file='om_hep.json'
+### Milih file json ###
+tipe_file = [("JSON Files", "*.json"), ("All Files", "*.*")]
+pilih_file_json = Path(filedialog.askopenfilename(filetypes=tipe_file,title="Pilih file json hasil xpaas nya"))
+print ('File json : ' + str(pilih_file_json))
+
+###
+
+file= pilih_file_json
 with open(file,'r') as f:
     data=json.load(f)
     
@@ -27,4 +37,8 @@ for item in data['elements']:
 print(len(hasil_akhir))
 tabel_akhir = pd.DataFrame(hasil_akhir)
 print(tabel_akhir)
-tabel_akhir.to_csv('iqbal_2.csv',index=False)
+
+simpen_file = filedialog.asksaveasfilename(filetypes=[('CSV Files', '*.csv'), ('All Files', '*.*')])
+tabel_akhir.to_csv(simpen_file,index=False)
+print ('Output csv ada di : ' + simpen_file)
+#input ("Press any key to exit : ")
